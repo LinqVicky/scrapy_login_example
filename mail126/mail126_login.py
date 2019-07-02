@@ -10,8 +10,8 @@ from selenium.common.exceptions import TimeoutException
 
 def login():
 
-    acount_num = 'victor_linq@126.com'	# input('请输入账号:\n')
-    passwd_str = 'Ldq102744'	# input('请输入密码:\n')
+    acount_num = input('请输入账号:\n')
+    passwd_str = input('请输入密码:\n')
   
     options = webdriver.ChromeOptions()
     # 此步骤很重要，设置为开发者模式，防止被各大网站识别出来使用了Selenium
@@ -47,9 +47,41 @@ def login():
         print(elem.get_attribute('id'))
         print(elem.get_attribute('src'))
         print('=' * 30)
-        # https://passport.126.com/webzj/v1.0.1/pub/index_dl2_new.html?cd=https%3A%2F%2Fmimg.127.net%2Fp%2Ffreemail%2Findex%2Funified%2Fstatic%2F2019%2Fcss%2F&cf=urs.126.589bdb88.css&MGID=1561986487983.4104&wdaId=&pkid=QdQXWEQ&product=mail126
+        
         browser.switch_to.frame(elem)
         time.sleep(1)
+
+        '''
+        使用python处理selenium中的css_selector定位元素的模糊匹配问题
+        # 匹配id，先指定一个html标签，然后加上“#”符号，再加上id的属性值
+
+        self.driver.find_element_by_css_selector('div#ID').click()
+
+        # 匹配class，先指定一个html标签，然后加上“.”符号，再加上class的属性值
+
+        self.driver.find_element_by_css_selector('div.CLASS').click()
+
+        # 匹配其他属性
+
+        self.driver.find_element_by_css_selector('div[name=NAME]').click()
+
+        # 组合匹配
+
+        self.driver.find_element_by_css_selector('div[name=NAME][type=TYPE]').click()
+
+        # 匹配头部
+
+        self.driver.find_element_by_css_selector('div[style^="sp.gif"]').click()
+
+        # 匹配尾部
+
+        self.driver.find_element_by_css_selector('div[style$="sp.gif"]').click()
+
+        # 匹配中间
+
+        self.driver.find_element_by_css_selector('div[style*="sp.gif"]').click()
+        '''
+
 
 
       
