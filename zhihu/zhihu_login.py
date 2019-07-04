@@ -58,6 +58,26 @@ class ZhiHu():
             if self.isElementExists('captcha'):
                 # 获取验证码图片数据
                 captcha = self.wait.until(EC.presence_of_element_located((By.NAME, 'captcha')))
+                # 知乎验证码， CSS中使用image data URI来处理图片的方法, 根据编发方式进行反编码即可获得图片
+                # 标签语法：
+				#     data : 取得数据协议
+				#     image/png : 取得数据的协议名称（注意这里也图片资源也可以使用字体等）
+				#     base64 : 数据编码方式
+				#     iVBOR... : 编码后数据
+				# 优点
+				#     减少 HTTP 请求
+				#     避免某些文件跨域
+				#     无图片缓存等问题(但是一般 css 也是有缓存的好不好)
+				# 缺点
+				#     兼容性 （ IE6,7 不兼容, 可以使用 MHTML 来解决 ）
+				#     浏览器不会缓存该图片（这里是否是这样我存有疑惑，因为好像看上去也是第一次加载的时候慢）
+				#     增加 css 文件大小
+				#     编码成本及维护(展示不直观，目前需手动转换，我暂时不知道自动替换之类的插件)
+				#     之前有看到过篇测评说性能上比 sprite 微弱一些，一时间找不到链接
+
+				# 综合起来，data URI可以使用在
+				# * 图片尺寸很小，使用一条 http 请求有点浪费，如渐变背景框
+				# * 图片在全站大规模使用，且很少被更新的，如 loading 
                 captcha_img = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'Captcha-englishImg'))).get_attribute('src')
                 print(captcha_img)
                 im_base64 = captcha_img.split(',')[1]  #拿到base64编码的图片信息
