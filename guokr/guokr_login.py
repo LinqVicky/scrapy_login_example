@@ -86,8 +86,8 @@ with open('captcha.jpg', 'wb') as fw:
 img=Image.open('captcha.jpg')
 img.show()
 
-username = '18350282520' # input('请输入用户名：')
-password = 'Ldq5635132.+-' # input('请输入密码：')
+username = input('请输入用户名：')
+password = input('请输入密码：')
 captcha = input('请输入验证码：')
 data = {
     'csrf_token': csrf_token,
